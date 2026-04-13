@@ -17,35 +17,53 @@
         a:hover { color: var(--accent); }
         
         /* Navbar */
-        nav { display: flex; justify-content: space-between; padding: 2rem 5%; align-items: center; position: sticky; top: 0; background: rgba(15, 15, 17, 0.9); backdrop-filter: blur(10px); z-index: 100; }
+        nav { display: flex; justify-content: space-between; padding: 1.5rem 5%; align-items: center; position: sticky; top: 0; background: rgba(15, 15, 17, 0.9); backdrop-filter: blur(10px); z-index: 100; }
         .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
         .nav-links { display: flex; gap: 2rem; }
         
-        /* Hero Section */
-        .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; }
-        .hero h1 { font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
-        .hero span { color: var(--accent); }
-        .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin-bottom: 2rem; }
-        .btn { display: inline-block; padding: 0.8rem 2rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        /* Hero & Profile Section */
+        .hero { min-height: 80vh; display: flex; align-items: center; padding: 0 5%; margin-top: 2rem; }
+        .profile-container { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
+        .avatar { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); }
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
+        .hero-text span { color: var(--accent); }
+        .personal-info { list-style: none; margin: 1.5rem 0; font-size: 1.1rem; color: var(--text-muted); }
+        .personal-info li { margin-bottom: 0.8rem; }
+        .personal-info strong { color: var(--text-main); display: inline-block; width: 120px; }
+        .btn { display: inline-block; margin-top: 1rem; padding: 0.8rem 2rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
         .btn:hover { background: var(--accent); color: var(--bg-color); }
 
         /* Work Grid */
         .work { padding: 5rem 5%; }
         .section-title { font-size: 2rem; margin-bottom: 3rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .card { background: #1a1a1c; border-radius: 8px; overflow: hidden; transition: transform 0.3s; cursor: pointer; }
-        .card:hover { transform: translateY(-10px); }
-        .card-img { width: 100%; height: 250px; background: #333; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        .card { background: #1a1a1c; border-radius: 8px; overflow: hidden; transition: transform 0.3s; cursor: pointer; border: 1px solid transparent; }
+        .card:hover { transform: translateY(-10px); border-color: #333; }
+        .card-img { width: 100%; height: 200px; background: #2a2a2c; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
         .card-info { padding: 1.5rem; }
-        .card-info h3 { margin-bottom: 0.5rem; }
+        .card-info h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
         .card-info p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Modal (Popup chi tiết dự án) */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
+        .modal-content { background-color: #1a1a1c; padding: 2.5rem; border-radius: 12px; max-width: 650px; width: 90%; position: relative; border: 1px solid #333; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .close-btn { position: absolute; top: 1.5rem; right: 2rem; color: var(--text-muted); font-size: 2rem; cursor: pointer; transition: 0.3s; line-height: 1; }
+        .close-btn:hover { color: var(--accent); }
+        .modal-meta { margin: 1.5rem 0; padding: 1rem; background: #0f0f11; border-radius: 6px; font-size: 0.95rem; }
+        .modal-meta p { margin-bottom: 0.5rem; }
+        .modal-meta p:last-child { margin-bottom: 0; }
+        .modal-meta strong { color: var(--accent); }
+        .modal-desc { color: var(--text-main); line-height: 1.8; text-align: justify; }
 
         /* Footer */
         footer { text-align: center; padding: 3rem 5%; border-top: 1px solid #333; color: var(--text-muted); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Thêm menu hamburger cho mobile sau */
+            .hero-text h1 { font-size: 2.5rem; }
+            .profile-container { flex-direction: column; text-align: center; gap: 2rem; }
+            .personal-info strong { width: auto; display: block; margin-bottom: 0.2rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -54,62 +72,109 @@
     <nav>
         <div class="logo">PORTFOLIO.</div>
         <div class="nav-links">
-            <a href="#work">Dự án</a>
             <a href="#about">Về tôi</a>
+            <a href="#work">Dự án</a>
             <a href="#contact">Liên hệ</a>
         </div>
     </nav>
 
-    <section class="hero">
-        <h1>Sáng tạo không gian <span>3D</span> <br>& Trải nghiệm Web.</h1>
-        <p>Kết hợp giữa nghệ thuật tạo hình 3D, kỹ thuật in ấn hiện đại và lập trình web để biến các ý tưởng thành sản phẩm thực tế.</p>
-        <a href="#work" class="btn">Xem Dự Án</a>
+    <section class="hero" id="about">
+        <div class="profile-container">
+            <img src="https://images.unsplash.com/photo-1531297172867-a2f0c13e4fc3?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="avatar">
+            
+            <div class="hero-text">
+                <h1>Xin chào, tôi là <br><span>[Tên của bạn]</span></h1>
+                
+                <ul class="personal-info">
+                    <li><strong>Học vấn:</strong> Lớp 12A6, THPT Châu Văn Liêm</li>
+                    <li><strong>Kỹ năng:</strong> 3D Modeling, Lập trình Web, In 3D (PLA/Bambulab)</li>
+                    <li><strong>Mục tiêu:</strong> Chuẩn bị chứng chỉ IELTS & SAT</li>
+                </ul>
+                
+                <a href="#work" class="btn">Xem Dự Án Của Tôi</a>
+            </div>
+        </div>
     </section>
 
     <section id="work" class="work">
         <h2 class="section-title">Dự Án Nổi Bật</h2>
         <div class="grid">
-            <div class="card">
-                <div class="card-img">[Thay bằng hình ảnh dự án]</div>
+            
+            <div class="card" onclick="openModal('Web App Custom Keychain 3D', 'Tháng 3, 2026', 'HTML/JS, Blender, Bambu Studio', 'Ứng dụng nền web cho phép người dùng nhập văn bản tùy chỉnh để in lên mô hình 3D móc khóa hình chiếc cà vạt. Hệ thống xử lý trực tiếp trên trình duyệt và xuất ra định dạng file tối ưu, sẵn sàng đưa vào máy in Bambulab A1 bằng vật liệu PLA.')">
+                <div class="card-img">[Ảnh Keychain]</div>
                 <div class="card-info">
                     <h3>Web App Custom Keychain 3D</h3>
-                    <p>Ứng dụng nền web cho phép người dùng tùy chỉnh text trên mô hình 3D móc khóa và xuất file để in.</p>
+                    <p>Ứng dụng web tùy chỉnh và xuất file in 3D móc khóa.</p>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-img">[Thay bằng hình ảnh dự án]</div>
+
+            <div class="card" onclick="openModal('Mô Hình Voi Yok Don', 'Tháng 3, 2026', 'Blender, 3D Printing', 'Lên ý tưởng, thiết kế concept và in 3D sản phẩm lưu niệm độc quyền mang biểu tượng chú voi dành cho Vườn Quốc gia Yok Don. Dự án tập trung vào việc tạo ra bề mặt in sắc nét và tối ưu cấu trúc để làm quà tặng thực tế.')">
+                <div class="card-img">[Ảnh Voi Yok Don]</div>
                 <div class="card-info">
                     <h3>Mô Hình Voi Yok Don</h3>
-                    <p>Thiết kế và in 3D sản phẩm lưu niệm độc quyền cho Vườn Quốc gia Yok Don.</p>
+                    <p>Sản phẩm lưu niệm in 3D cho Vườn Quốc gia.</p>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-img">[Thay bằng hình ảnh dự án]</div>
+
+            <div class="card" onclick="openModal('Chiến dịch Forever March', 'Tháng 3, 2026', 'Phần mềm đồ họa', 'Thiết kế hệ thống hình ảnh thị giác và typographic chính cho dự án Forever March. Sản phẩm bao gồm poster truyền thông với bố cục tập trung vào thông điệp cốt lõi của sự kiện.')">
+                <div class="card-img">[Ảnh Forever March]</div>
                 <div class="card-info">
                     <h3>Poster "Forever March"</h3>
-                    <p>Thiết kế hình ảnh thị giác và typographic cho dự án.</p>
+                    <p>Thiết kế hình ảnh thị giác và typographic.</p>
                 </div>
             </div>
+
         </div>
     </section>
 
     <footer id="contact">
         <h2>Sẵn sàng hợp tác?</h2>
-        <p style="margin: 1rem 0;">Hãy liên hệ với tôi qua email hoặc các nền tảng mạng xã hội.</p>
+        <p style="margin: 1rem 0;">Hãy liên hệ với tôi qua email.</p>
         <a href="mailto:email-cua-ban@gmail.com" class="btn">Gửi Email</a>
-        <p style="margin-top: 3rem; font-size: 0.8rem;">© 2026 Bản quyền thuộc về bạn.</p>
+        <p style="margin-top: 3rem; font-size: 0.8rem;">© 2026 [Tên của bạn]. All rights reserved.</p>
     </footer>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Tên dự án</h2>
+            <div class="modal-meta">
+                <p>📅 <strong>Thời gian:</strong> <span id="modalDate">...</span></p>
+                <p>🛠️ <strong>Công cụ & Phần mềm:</strong> <span id="modalTech">...</span></p>
+            </div>
+            <p class="modal-desc" id="modalDesc">Chi tiết dự án...</p>
+        </div>
+    </div>
 
     <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
+
+        // Xử lý bật/tắt Modal
+        function openModal(title, date, tech, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDate').innerText = date;
+            document.getElementById('modalTech').innerText = tech;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('projectModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+
+        // Bấm ra ngoài vùng nội dung để đóng modal
+        window.onclick = function(event) {
+            let modal = document.getElementById('projectModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
