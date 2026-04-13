@@ -12,57 +12,72 @@
             --accent: #00ffcc;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
-        a { color: var(--text-main); text-decoration: none; transition: 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        a { color: var(--text-main); text-decoration: none; transition: color 0.3s ease; }
         a:hover { color: var(--accent); }
         
+        /* Hiệu ứng xuất hiện chung */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         /* Navbar */
-        nav { display: flex; justify-content: space-between; padding: 1.5rem 5%; align-items: center; position: sticky; top: 0; background: rgba(15, 15, 17, 0.9); backdrop-filter: blur(10px); z-index: 100; }
+        nav { display: flex; justify-content: space-between; padding: 1.5rem 5%; align-items: center; position: sticky; top: 0; background: rgba(15, 15, 17, 0.85); backdrop-filter: blur(12px); z-index: 100; transition: all 0.3s ease; }
         .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
         .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--accent); transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
         
         /* Hero & Profile Section */
-        .hero { min-height: 80vh; display: flex; align-items: center; padding: 0 5%; margin-top: 2rem; }
-        .profile-container { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
-        .avatar { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); }
-        .hero-text h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
-        .hero-text span { color: var(--accent); }
-        .personal-info { list-style: none; margin: 1.5rem 0; font-size: 1.1rem; color: var(--text-muted); }
-        .personal-info li { margin-bottom: 0.8rem; }
-        .personal-info strong { color: var(--text-main); display: inline-block; width: 120px; }
-        .btn { display: inline-block; margin-top: 1rem; padding: 0.8rem 2rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
-        .btn:hover { background: var(--accent); color: var(--bg-color); }
+        .hero { min-height: 85vh; display: flex; align-items: center; padding: 0 5%; margin-top: 2rem; }
+        .profile-container { display: flex; align-items: center; gap: 5rem; flex-wrap: wrap; }
+        
+        /* Avatar Hình Chữ Nhật Lớn */
+        .avatar-wrapper { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: transform 0.5s ease; }
+        .avatar-wrapper:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 255, 204, 0.15); }
+        .avatar { width: 340px; height: 460px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .avatar-wrapper:hover .avatar { transform: scale(1.05); }
+
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-text h1 { font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
+        .hero-text span { color: var(--accent); display: inline-block; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+        .personal-info { list-style: none; margin: 2rem 0; font-size: 1.1rem; color: var(--text-muted); }
+        .personal-info li { margin-bottom: 1rem; display: flex; align-items: center; transition: transform 0.3s ease; }
+        .personal-info li:hover { transform: translateX(10px); color: var(--text-main); }
+        .personal-info strong { color: var(--text-main); width: 130px; }
+        
+        .btn { display: inline-block; margin-top: 1rem; padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 1; }
+        .btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); transition: all 0.4s ease; z-index: -1; }
+        .btn:hover::before { width: 100%; }
+        .btn:hover { color: var(--bg-color); border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2); }
 
         /* Work Grid */
-        .work { padding: 5rem 5%; }
-        .section-title { font-size: 2rem; margin-bottom: 3rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .card { background: #1a1a1c; border-radius: 8px; overflow: hidden; transition: transform 0.3s; cursor: pointer; border: 1px solid transparent; }
-        .card:hover { transform: translateY(-10px); border-color: #333; }
-        .card-img { width: 100%; height: 200px; background: #2a2a2c; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
-        .card-info { padding: 1.5rem; }
-        .card-info h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-        .card-info p { color: var(--text-muted); font-size: 0.9rem; }
+        .work { padding: 8rem 5%; }
+        .section-title { font-size: 2.5rem; margin-bottom: 4rem; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; width: 50%; height: 3px; bottom: -10px; left: 0; background: var(--accent); transition: width 0.3s ease; }
+        .section-title:hover::after { width: 100%; }
 
-        /* Modal (Popup chi tiết dự án) */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
-        .modal-content { background-color: #1a1a1c; padding: 2.5rem; border-radius: 12px; max-width: 650px; width: 90%; position: relative; border: 1px solid #333; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .close-btn { position: absolute; top: 1.5rem; right: 2rem; color: var(--text-muted); font-size: 2rem; cursor: pointer; transition: 0.3s; line-height: 1; }
-        .close-btn:hover { color: var(--accent); }
-        .modal-meta { margin: 1.5rem 0; padding: 1rem; background: #0f0f11; border-radius: 6px; font-size: 0.95rem; }
-        .modal-meta p { margin-bottom: 0.5rem; }
-        .modal-meta p:last-child { margin-bottom: 0; }
-        .modal-meta strong { color: var(--accent); }
-        .modal-desc { color: var(--text-main); line-height: 1.8; text-align: justify; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
+        .card { display: block; background: #1a1a1c; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; }
+        .card:hover { transform: translateY(-15px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .card-img { width: 100%; height: 250px; background: #2a2a2c; position: relative; overflow: hidden; }
+        .card-img::after { content: 'Xem chi tiết →'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,255,204,0.8); color: var(--bg-color); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; opacity: 0; transition: all 0.4s ease; backdrop-filter: blur(5px); }
+        .card:hover .card-img::after { opacity: 1; }
+        
+        .card-info { padding: 2rem; }
+        .card-info h3 { margin-bottom: 0.8rem; font-size: 1.4rem; transition: color 0.3s ease; }
+        .card:hover .card-info h3 { color: var(--accent); }
+        .card-info p { color: var(--text-muted); font-size: 1rem; }
 
-        /* Footer */
-        footer { text-align: center; padding: 3rem 5%; border-top: 1px solid #333; color: var(--text-muted); }
+        footer { text-align: center; padding: 4rem 5%; border-top: 1px solid rgba(255,255,255,0.05); }
 
         @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.5rem; }
-            .profile-container { flex-direction: column; text-align: center; gap: 2rem; }
-            .personal-info strong { width: auto; display: block; margin-bottom: 0.2rem; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .profile-container { flex-direction: column; text-align: center; gap: 3rem; }
+            .personal-info li { flex-direction: column; text-align: center; }
+            .personal-info strong { width: auto; margin-bottom: 0.5rem; }
             .nav-links { display: none; }
         }
     </style>
@@ -78,76 +93,62 @@
         </div>
     </nav>
 
-    <section class="hero" id="about">
+    <section class="hero reveal" id="about">
         <div class="profile-container">
-            <img src="https://images.unsplash.com/photo-1531297172867-a2f0c13e4fc3?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="avatar">
+            <div class="avatar-wrapper reveal">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Avatar" class="avatar">
+            </div>
             
-            <div class="hero-text">
+            <div class="hero-text reveal">
                 <h1>Xin chào, tôi là <br><span>[Tên của bạn]</span></h1>
-                
                 <ul class="personal-info">
                     <li><strong>Học vấn:</strong> Lớp 12A6, THPT Châu Văn Liêm</li>
-                    <li><strong>Kỹ năng:</strong> 3D Modeling, Lập trình Web, In 3D (PLA/Bambulab)</li>
-                    <li><strong>Mục tiêu:</strong> Chuẩn bị chứng chỉ IELTS & SAT</li>
+                    <li><strong>Kỹ năng:</strong> 3D Modeling, Web Dev, In 3D</li>
+                    <li><strong>Mục tiêu:</strong> Chứng chỉ IELTS & SAT</li>
                 </ul>
-                
-                <a href="#work" class="btn">Xem Dự Án Của Tôi</a>
+                <a href="#work" class="btn">Khám phá dự án</a>
             </div>
         </div>
     </section>
 
     <section id="work" class="work">
-        <h2 class="section-title">Dự Án Nổi Bật</h2>
+        <h2 class="section-title reveal">Dự Án Nổi Bật</h2>
         <div class="grid">
             
-            <div class="card" onclick="openModal('Web App Custom Keychain 3D', 'Tháng 3, 2026', 'HTML/JS, Blender, Bambu Studio', 'Ứng dụng nền web cho phép người dùng nhập văn bản tùy chỉnh để in lên mô hình 3D móc khóa hình chiếc cà vạt. Hệ thống xử lý trực tiếp trên trình duyệt và xuất ra định dạng file tối ưu, sẵn sàng đưa vào máy in Bambulab A1 bằng vật liệu PLA.')">
-                <div class="card-img">[Ảnh Keychain]</div>
+            <a href="project-keychain.html" class="card reveal">
+                <div class="card-img"></div>
                 <div class="card-info">
-                    <h3>Web App Custom Keychain 3D</h3>
-                    <p>Ứng dụng web tùy chỉnh và xuất file in 3D móc khóa.</p>
+                    <h3>Web App Custom Keychain</h3>
+                    <p>Ứng dụng web thiết kế móc khóa và xuất file in 3D trực tiếp.</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="card" onclick="openModal('Mô Hình Voi Yok Don', 'Tháng 3, 2026', 'Blender, 3D Printing', 'Lên ý tưởng, thiết kế concept và in 3D sản phẩm lưu niệm độc quyền mang biểu tượng chú voi dành cho Vườn Quốc gia Yok Don. Dự án tập trung vào việc tạo ra bề mặt in sắc nét và tối ưu cấu trúc để làm quà tặng thực tế.')">
-                <div class="card-img">[Ảnh Voi Yok Don]</div>
+            <a href="#" class="card reveal">
+                <div class="card-img"></div>
                 <div class="card-info">
                     <h3>Mô Hình Voi Yok Don</h3>
-                    <p>Sản phẩm lưu niệm in 3D cho Vườn Quốc gia.</p>
+                    <p>Thiết kế lưu niệm độc quyền in 3D cho Vườn Quốc gia.</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="card" onclick="openModal('Chiến dịch Forever March', 'Tháng 3, 2026', 'Phần mềm đồ họa', 'Thiết kế hệ thống hình ảnh thị giác và typographic chính cho dự án Forever March. Sản phẩm bao gồm poster truyền thông với bố cục tập trung vào thông điệp cốt lõi của sự kiện.')">
-                <div class="card-img">[Ảnh Forever March]</div>
+            <a href="#" class="card reveal">
+                <div class="card-img"></div>
                 <div class="card-info">
-                    <h3>Poster "Forever March"</h3>
-                    <p>Thiết kế hình ảnh thị giác và typographic.</p>
+                    <h3>Forever March</h3>
+                    <p>Thiết kế hình ảnh thị giác và typography truyền thông.</p>
                 </div>
-            </div>
+            </a>
 
         </div>
     </section>
 
-    <footer id="contact">
+    <footer id="contact" class="reveal">
         <h2>Sẵn sàng hợp tác?</h2>
-        <p style="margin: 1rem 0;">Hãy liên hệ với tôi qua email.</p>
-        <a href="mailto:email-cua-ban@gmail.com" class="btn">Gửi Email</a>
-        <p style="margin-top: 3rem; font-size: 0.8rem;">© 2026 [Tên của bạn]. All rights reserved.</p>
+        <a href="mailto:email@gmail.com" class="btn" style="margin-top: 2rem;">Gửi Email</a>
     </footer>
 
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Tên dự án</h2>
-            <div class="modal-meta">
-                <p>📅 <strong>Thời gian:</strong> <span id="modalDate">...</span></p>
-                <p>🛠️ <strong>Công cụ & Phần mềm:</strong> <span id="modalTech">...</span></p>
-            </div>
-            <p class="modal-desc" id="modalDesc">Chi tiết dự án...</p>
-        </div>
-    </div>
-
     <script>
-        // Smooth scrolling
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -155,26 +156,20 @@
             });
         });
 
-        // Xử lý bật/tắt Modal
-        function openModal(title, date, tech, desc) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDate').innerText = date;
-            document.getElementById('modalTech').innerText = tech;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('projectModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('projectModal').style.display = 'none';
-        }
-
-        // Bấm ra ngoài vùng nội dung để đóng modal
-        window.onclick = function(event) {
-            let modal = document.getElementById('projectModal');
-            if (event.target == modal) {
-                modal.style.display = "none";
+        // Animation cuộn trang (Intersection Observer)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
             }
         }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Kích hoạt ngay khi load trang
     </script>
 </body>
 </html>
