@@ -3,173 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | 3D & Lập trình</title>
+    <title>Khám phá Portfolio | [Tên của bạn]</title>
     <style>
-        :root {
-            --bg-color: #0f0f11;
-            --text-main: #f5f5f7;
-            --text-muted: #86868b;
-            --accent: #00ffcc;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
-        a { color: var(--text-main); text-decoration: none; transition: color 0.3s ease; }
-        a:hover { color: var(--accent); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { overflow: hidden; background: #0f0f11; color: white; }
         
-        /* Hiệu ứng xuất hiện chung */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Navbar */
-        nav { display: flex; justify-content: space-between; padding: 1.5rem 5%; align-items: center; position: sticky; top: 0; background: rgba(15, 15, 17, 0.85); backdrop-filter: blur(12px); z-index: 100; transition: all 0.3s ease; }
-        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { position: relative; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--accent); transition: width 0.3s ease; }
-        .nav-links a:hover::after { width: 100%; }
+        .split-container { display: flex; width: 100vw; height: 100vh; }
         
-        /* Hero & Profile Section */
-        .hero { min-height: 85vh; display: flex; align-items: center; padding: 0 5%; margin-top: 2rem; }
-        .profile-container { display: flex; align-items: center; gap: 5rem; flex-wrap: wrap; }
+        .side { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; text-decoration: none; color: white; }
+        .side:hover { flex: 1.5; }
         
-        /* Avatar Hình Chữ Nhật Lớn */
-        .avatar-wrapper { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: transform 0.5s ease; }
-        .avatar-wrapper:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 255, 204, 0.15); }
-        .avatar { width: 340px; height: 460px; object-fit: cover; display: block; transition: transform 0.5s ease; }
-        .avatar-wrapper:hover .avatar { transform: scale(1.05); }
-
-        .hero-text { flex: 1; min-width: 300px; }
-        .hero-text h1 { font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
-        .hero-text span { color: var(--accent); display: inline-block; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-
-        .personal-info { list-style: none; margin: 2rem 0; font-size: 1.1rem; color: var(--text-muted); }
-        .personal-info li { margin-bottom: 1rem; display: flex; align-items: center; transition: transform 0.3s ease; }
-        .personal-info li:hover { transform: translateX(10px); color: var(--text-main); }
-        .personal-info strong { color: var(--text-main); width: 130px; }
+        /* Hình nền mờ */
+        .side::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.4; transition: opacity 0.6s, transform 0.6s; z-index: -1; }
+        .side:hover::before { opacity: 0.8; transform: scale(1.05); }
         
-        .btn { display: inline-block; margin-top: 1rem; padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 1; }
-        .btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); transition: all 0.4s ease; z-index: -1; }
-        .btn:hover::before { width: 100%; }
-        .btn:hover { color: var(--bg-color); border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2); }
-
-        /* Work Grid */
-        .work { padding: 8rem 5%; }
-        .section-title { font-size: 2.5rem; margin-bottom: 4rem; position: relative; display: inline-block; }
-        .section-title::after { content: ''; position: absolute; width: 50%; height: 3px; bottom: -10px; left: 0; background: var(--accent); transition: width 0.3s ease; }
-        .section-title:hover::after { width: 100%; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
-        .card { display: block; background: #1a1a1c; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; }
-        .card:hover { transform: translateY(-15px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
-        .card-img { width: 100%; height: 250px; background: #2a2a2c; position: relative; overflow: hidden; }
-        .card-img::after { content: 'Xem chi tiết →'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,255,204,0.8); color: var(--bg-color); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; opacity: 0; transition: all 0.4s ease; backdrop-filter: blur(5px); }
-        .card:hover .card-img::after { opacity: 1; }
+        .side-3d::before { background-image: url('https://images.unsplash.com/photo-1631556097152-c3bfde812255?auto=format&fit=crop&w=1000&q=80'); }
+        .side-photo::before { background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80'); }
         
-        .card-info { padding: 2rem; }
-        .card-info h3 { margin-bottom: 0.8rem; font-size: 1.4rem; transition: color 0.3s ease; }
-        .card:hover .card-info h3 { color: var(--accent); }
-        .card-info p { color: var(--text-muted); font-size: 1rem; }
-
-        footer { text-align: center; padding: 4rem 5%; border-top: 1px solid rgba(255,255,255,0.05); }
+        .content { z-index: 1; transition: transform 0.4s; }
+        .side:hover .content { transform: translateY(-10px); }
+        
+        h1 { font-size: 4rem; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        p { font-size: 1.2rem; letter-spacing: 2px; color: #00ffcc; text-transform: uppercase; opacity: 0; transform: translateY(20px); transition: all 0.4s ease 0.1s; }
+        .side:hover p { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.8rem; }
-            .profile-container { flex-direction: column; text-align: center; gap: 3rem; }
-            .personal-info li { flex-direction: column; text-align: center; }
-            .personal-info strong { width: auto; margin-bottom: 0.5rem; }
-            .nav-links { display: none; }
+            .split-container { flex-direction: column; }
+            .side:hover { flex: 1.2; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo">PORTFOLIO.</div>
-        <div class="nav-links">
-            <a href="#about">Về tôi</a>
-            <a href="#work">Dự án</a>
-            <a href="#contact">Liên hệ</a>
-        </div>
-    </nav>
-
-    <section class="hero reveal" id="about">
-        <div class="profile-container">
-            <div class="avatar-wrapper reveal">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Avatar" class="avatar">
+    <div class="split-container">
+        <a href="portfolio-3d.html" class="side side-3d">
+            <div class="content">
+                <h1>Đồ Họa 3D</h1>
+                <p>Khám phá dự án & Web</p>
             </div>
-            
-            <div class="hero-text reveal">
-                <h1>Xin chào, tôi là <br><span>[Tên của bạn]</span></h1>
-                <ul class="personal-info">
-                    <li><strong>Học vấn:</strong> Lớp 12A6, THPT Châu Văn Liêm</li>
-                    <li><strong>Kỹ năng:</strong> 3D Modeling, Web Dev, In 3D</li>
-                    <li><strong>Mục tiêu:</strong> Chứng chỉ IELTS & SAT</li>
-                </ul>
-                <a href="#work" class="btn">Khám phá dự án</a>
+        </a>
+        <a href="portfolio-photo.html" class="side side-photo">
+            <div class="content">
+                <h1>Nhiếp Ảnh</h1>
+                <p>Góc nhìn qua ống kính</p>
             </div>
-        </div>
-    </section>
-
-    <section id="work" class="work">
-        <h2 class="section-title reveal">Dự Án Nổi Bật</h2>
-        <div class="grid">
-            
-            <a href="project-keychain.html" class="card reveal">
-                <div class="card-img"></div>
-                <div class="card-info">
-                    <h3>Web App Custom Keychain</h3>
-                    <p>Ứng dụng web thiết kế móc khóa và xuất file in 3D trực tiếp.</p>
-                </div>
-            </a>
-
-            <a href="#" class="card reveal">
-                <div class="card-img"></div>
-                <div class="card-info">
-                    <h3>Mô Hình Voi Yok Don</h3>
-                    <p>Thiết kế lưu niệm độc quyền in 3D cho Vườn Quốc gia.</p>
-                </div>
-            </a>
-
-            <a href="#" class="card reveal">
-                <div class="card-img"></div>
-                <div class="card-info">
-                    <h3>Forever March</h3>
-                    <p>Thiết kế hình ảnh thị giác và typography truyền thông.</p>
-                </div>
-            </a>
-
-        </div>
-    </section>
-
-    <footer id="contact" class="reveal">
-        <h2>Sẵn sàng hợp tác?</h2>
-        <a href="mailto:email@gmail.com" class="btn" style="margin-top: 2rem;">Gửi Email</a>
-    </footer>
-
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Animation cuộn trang (Intersection Observer)
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Kích hoạt ngay khi load trang
-    </script>
+        </a>
+    </div>
 </body>
 </html>
