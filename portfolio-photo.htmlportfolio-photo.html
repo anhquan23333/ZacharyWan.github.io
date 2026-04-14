@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography | Khoa Bui</title>
+    <style>
+        :root { --bg: #030303; --text: #f0f0f0; --text-dim: #666; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 5rem; }
+        a { text-decoration: none; color: inherit; }
+
+        header { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .back-btn { font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); transition: 0.3s; }
+        .back-btn:hover { color: #fff; }
+        .logo { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; }
+
+        .page-title { padding: 6rem 5% 4rem; font-size: 3.5rem; font-weight: 300; letter-spacing: 2px; animation: fadeUp 1s forwards; opacity: 0; transform: translateY(20px); }
+
+        .gallery { padding: 0 5%; column-count: 3; column-gap: 2rem; }
+        .gallery-item { margin-bottom: 2rem; break-inside: avoid; overflow: hidden; position: relative; animation: fadeUp 1s forwards; opacity: 0; transform: translateY(30px); cursor: crosshair; }
+        
+        .gallery-item img { width: 100%; display: block; filter: grayscale(20%); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.03); }
+        
+        .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 40%); opacity: 0; transition: 0.5s ease; display: flex; align-items: flex-end; padding: 2rem; }
+        .gallery-item:hover .overlay { opacity: 1; }
+        .overlay span { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 300; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) { .gallery { column-count: 2; } .page-title { font-size: 2.5rem; } }
+        @media (max-width: 600px) { .gallery { column-count: 1; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-btn">← Quay Lại</a>
+        <div class="logo">PHOTOGRAPHY</div>
+    </header>
+
+    <h1 class="page-title">NHỮNG<br>KHOẢNH KHẮC</h1>
+
+    <div class="gallery">
+        <div class="gallery-item" style="animation-delay: 0.1s;">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80" alt="Photo">
+            <div class="overlay"><span>Sài Gòn - 2026</span></div>
+        </div>
+        <div class="gallery-item" style="animation-delay: 0.2s;">
+            <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=600&q=80" alt="Photo">
+            <div class="overlay"><span>Chân dung</span></div>
+        </div>
+        <div class="gallery-item" style="animation-delay: 0.3s;">
+            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80" alt="Photo">
+            <div class="overlay"><span>Thiên nhiên</span></div>
+        </div>
+    </div>
+</body>
+</html>
