@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Graphics | Khoa Bui</title>
+    <style>
+        :root { --bg: #030303; --text: #f0f0f0; --text-dim: #666; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 5rem; }
+        a { text-decoration: none; color: inherit; }
+
+        header { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .back-btn { font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); transition: 0.3s; }
+        .back-btn:hover { color: #fff; }
+        .logo { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; }
+
+        .page-title { padding: 6rem 5% 4rem; font-size: 3.5rem; font-weight: 300; letter-spacing: 2px; animation: fadeUp 1s forwards; opacity: 0; transform: translateY(20px); }
+
+        .project-list { padding: 0 5%; display: flex; flex-direction: column; gap: 4rem; }
+        
+        .project-item { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; animation: fadeUp 1s 0.3s forwards; opacity: 0; transform: translateY(30px); }
+        /* Đảo ngược bố cục cho dự án số chẵn */
+        .project-item:nth-child(even) .project-img-wrapper { order: 2; }
+        .project-item:nth-child(even) .project-info { order: 1; text-align: right; }
+
+        .project-img-wrapper { overflow: hidden; border-radius: 4px; position: relative; }
+        .project-img { width: 100%; height: 400px; object-fit: cover; filter: grayscale(40%); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); display: block; }
+        .project-img-wrapper:hover .project-img { filter: grayscale(0%); transform: scale(1.05); }
+
+        .project-info h2 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .project-info p { color: var(--text-dim); font-size: 1rem; margin-bottom: 2rem; max-width: 400px; line-height: 1.6; }
+        .project-item:nth-child(even) .project-info p { margin-left: auto; }
+        
+        .view-btn { display: inline-block; padding-bottom: 5px; border-bottom: 1px solid var(--text-dim); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
+        .view-btn:hover { border-color: #fff; color: #fff; padding-left: 10px; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .project-item { grid-template-columns: 1fr; gap: 2rem; }
+            .project-item:nth-child(even) .project-img-wrapper { order: 1; }
+            .project-item:nth-child(even) .project-info { order: 2; text-align: left; }
+            .page-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-btn">← Quay Lại</a>
+        <div class="logo">3D & WEB</div>
+    </header>
+
+    <h1 class="page-title">CÁC DỰ ÁN</h1>
+
+    <div class="project-list">
+        <article class="project-item">
+            <a href="project-keychain.html" class="project-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1631556097152-c3bfde812255?auto=format&fit=crop&w=800&q=80" alt="Keychain" class="project-img">
+            </a>
+            <div class="project-info">
+                <h2>Custom Keychain</h2>
+                <p>Ứng dụng web thiết kế móc khóa và xuất file in 3D trực tiếp, tối ưu cho máy in FDM.</p>
+                <a href="project-keychain.html" class="view-btn">Xem chi tiết</a>
+            </div>
+        </article>
+
+        <article class="project-item">
+            <a href="project-elephant.html" class="project-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1583344155132-7a70196726c0?auto=format&fit=crop&w=800&q=80" alt="Voi Yok Don" class="project-img">
+            </a>
+            <div class="project-info">
+                <h2>Voi Yok Don</h2>
+                <p>Thiết kế lưu niệm độc quyền in 3D cho Vườn Quốc gia, phong cách low-poly.</p>
+                <a href="project-elephant.html" class="view-btn">Xem chi tiết</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
