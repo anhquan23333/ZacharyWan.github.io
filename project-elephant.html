@@ -1,4 +1,47 @@
-<div class="back-nav fade-in"><a href="portfolio-3d.html" class="back-btn">← Quay lại Portfolio 3D</a></div>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết dự án | Voi Yok Don</title>
+    <style>
+        :root { --bg-color: #0f0f11; --text-main: #f5f5f7; --text-muted: #86868b; --accent: #00ffcc; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.8; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        
+        .fade-in { animation: fadeIn 1s ease forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .back-nav { padding: 2rem 5%; position: fixed; width: 100%; top: 0; background: linear-gradient(rgba(15,15,17,1), rgba(15,15,17,0)); z-index: 10; }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s; }
+        .back-btn:hover { color: var(--accent); transform: translateX(-5px); }
+
+        .project-hero { height: 60vh; background: #1a1a1c; display: flex; align-items: flex-end; padding: 5%; position: relative; margin-bottom: 4rem; overflow: hidden; }
+        .project-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1583344155132-7a70196726c0?auto=format&fit=crop&w=1200&q=80') center/cover; opacity: 0.3; transition: transform 5s ease; }
+        .project-hero:hover::before { transform: scale(1.05); }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; animation-delay: 0.3s; }
+        .hero-content h1 { font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
+
+        .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto 4rem auto; padding: 2rem 5%; border-bottom: 1px solid #333; animation-delay: 0.5s; }
+        .meta-item h4 { color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-bottom: 0.5rem; }
+        .meta-item p { font-weight: bold; font-size: 1.1rem; }
+
+        .content-section { max-width: 800px; margin: 0 auto; padding: 0 5% 5rem 5%; animation-delay: 0.7s; }
+        .content-section h2 { font-size: 2rem; margin: 2rem 0 1rem 0; color: var(--accent); }
+        .content-section p { margin-bottom: 1.5rem; font-size: 1.1rem; text-align: justify; }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .meta-grid { grid-template-columns: 1fr; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav fade-in">
+        <a href="portfolio-3d.html" class="back-btn">← Quay lại Portfolio 3D</a>
+    </div>
     
     <header class="project-hero">
         <div class="hero-content fade-in">
@@ -17,7 +60,18 @@
         <h2>Tổng quan dự án</h2>
         <p>Yok Don là Vườn quốc gia nổi tiếng với mô hình du lịch sinh thái thân thiện với voi. Dự án này nhằm tạo ra một sản phẩm lưu niệm vật lý mang tính biểu tượng, sử dụng công nghệ in 3D FDM để có thể sản xuất quy mô nhỏ trực tiếp.</p>
         
+        <div style="background: #2a2a2c; height: 300px; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin: 2rem 0; color: var(--text-muted);">
+            [Hình ảnh render mô hình 3D trên Blender]
+        </div>
+
         <h2>Quá trình thực hiện</h2>
         <p><strong>1. Tạo hình (Sculpting):</strong> Quá trình nặn mô hình trên Blender tập trung vào các đặc điểm nhận dạng của voi Châu Á. Lưới (mesh) được tối ưu hóa theo dạng Low-poly cách điệu để tạo điểm nhấn thị giác và dễ in.</p>
         <p><strong>2. Xử lý In 3D:</strong> Sử dụng phần mềm Bambu Studio để cắt lớp (slicing) cho máy in Bambulab A1. Thử thách lớn nhất là việc xử lý các phần nhô ra (overhang) như vòi và ngà voi sao cho hạn chế tối đa việc sử dụng vật liệu chống đỡ (support), đảm bảo bề mặt in bằng nhựa PLA láng mịn nhất có thể.</p>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="portfolio-3d.html" style="color: var(--accent); font-weight: bold; font-size: 1.2rem; border-bottom: 2px solid var(--accent); padding-bottom: 5px; transition: 0.3s;">← Xem các dự án khác</a>
+        </div>
     </main>
+
+</body>
+</html>
